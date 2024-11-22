@@ -1,0 +1,14 @@
+#Author:Vasanthi
+
+#!/bin/bash
+
+LOG_FILE="/var/log/myapp.log"
+BACKUP_DIR="/var/log/backup"
+
+# Rotate the log file
+mv $LOG_FILE $BACKUP_DIR/myapp.log.$(date +%F)
+
+# Create a new log file
+touch $LOG_FILE
+chmod 644 $LOG_FILE
+echo "Log file rotated on $(date)" >> $LOG_FILE
