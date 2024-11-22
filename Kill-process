@@ -1,0 +1,11 @@
+# Author: Vasanthi
+
+CPU_THRESHOLD=80
+
+# Find processes exceeding the threshold
+ps -eo pid,ppid,cmd,%cpu --sort=-%cpu | awk -v threshold=$CPU_THRESHOLD '
+NR>1 && $4 > threshold {print $1}' | while read pid
+do
+    echo "Killing process $pid with high CPU usage"
+    kill -9 $pid
+done
