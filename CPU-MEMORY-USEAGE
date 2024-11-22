@@ -1,0 +1,17 @@
+# Author: Vasanthi
+# Team : Devops
+
+CPU_THRESHOLD=80
+MEM_THRESHOLD=90
+
+# Check CPU usage
+CPU_USAGE=$(top -bn1 | grep "Cpu(s)" | awk '{print $2 + $4}')
+if (( $(echo "$CPU_USAGE > $CPU_THRESHOLD" | bc -l) )); then
+    echo "High CPU usage: $CPU_USAGE%" | mail -s "CPU Alert" admin@example.com
+fi
+
+# Check Memory usage
+MEM_USAGE=$(free | grep Mem | awk '{print $3/$2 * 100.0}')
+if (( $(echo "$MEM_USAGE > $MEM_THRESHOLD" | bc -l) )); then
+    echo "High Memory usage: $MEM_USAGE%" | mail -s "Memory Alert" xxxxadmin@example.com
+fi
